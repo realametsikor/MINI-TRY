@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        /* CSS Variables for easy color theme changes */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --bg-light: #f8f9fa;
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #fff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--bg-light);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+
+        /* Portfolio Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--bg-light);
+            color: var(--secondary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: var(--text-light);
+        }
+
+        .contact a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #1a252f;
+            color: #7f8c8d;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            nav a { margin: 0 0.5rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#portfolio">Work</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section class="hero" id="about">
+        <h1>Hello, I'm [Your Name]</h1>
+        <p>A multi-disciplinary professional specializing in brand marketing, product development, and user-centric design.</p>
+        <a href="#portfolio" class="btn">View My Work</a>
+    </section>
+
+    <section class="container" id="portfolio">
+        <h2 class="section-title">Selected Projects</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <span class="tag">FMCG Marketing</span>
+                <h3>Brand Activations & Market Strategy</h3>
+                <p>Developed comprehensive promotional strategies and competitor analysis for consumer food products, including NutriMorn White Oats and NutriSnax Oats Digestive, resulting in targeted advertising materials and market positioning.</p>
+            </div>
+
+            <div class="card">
+                <span class="tag">Academic Research</span>
+                <h3>Ghanaian Consumer Behavior Analysis</h3>
+                <p>Authored a detailed academic analysis exploring economic shifts and evolving consumer behavioral patterns within the Ghanaian market from 2020 to 2025.</p>
+            </div>
+
+            <div class="card">
+                <span class="tag">Product / UX</span>
+                <h3>LMS Dashboard Development</h3>
+                <p>Led feature ideation and structural improvements for a Learning Management System dashboard, bridging the gap between student needs and teacher utility for a more intuitive user experience.</p>
+            </div>
+
+            <div class="card">
+                <span class="tag">Graphic Design</span>
+                <h3>"Perk my Valentine" Campaign</h3>
+                <p>Designed the visual identity and promotional stickers for the 'Perk' brand's seasonal Valentine's Day gift bag initiative, driving brand engagement through creative assets.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container contact" id="contact" style="max-width: 100%; padding: 4rem 2rem;">
+        <h2 class="section-title">Let's Connect</h2>
+        <p>Currently based in Nigeria and open to new opportunities and collaborations.</p>
+        <p style="margin-top: 1.5rem;">
+            Email me at: <a href="mailto:your.email@example.com">your.email@example.com</a>
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 [Your Name]. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
