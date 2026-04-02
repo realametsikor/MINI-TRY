@@ -1,247 +1,417 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Focus 360 | Master Graphic Design</title>
     <style>
-        /* CSS Variables for easy color theme changes */
+        /* CSS Variables for Light/Dark Mode */
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #e67e22;
-            --bg-light: #f8f9fa;
-            --text-dark: #333;
-            --text-light: #fff;
+            --bg-color: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #555555;
+            --accent-color: #cda34f; /* Elegant Gold */
+            --accent-hover: #a88136;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: #f9f9f9;
+            --border-color: #eeeeee;
+            --transition-speed: 0.4s;
         }
 
-        /* Base Styles */
+        [data-theme="dark"] {
+            --bg-color: #0a0a0a;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --accent-color: #e5b85c;
+            --accent-hover: #ffd700;
+            --nav-bg: rgba(10, 10, 10, 0.95);
+            --card-bg: #151515;
+            --border-color: #222222;
+        }
+
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            overflow-x: hidden;
         }
+
+        html { scroll-behavior: smooth; }
+
+        /* Typography */
+        h1, h2, h3 { font-weight: 300; letter-spacing: 1px; }
+        .text-accent { color: var(--accent-color); font-weight: 500; }
 
         /* Navigation */
         nav {
-            background-color: var(--primary-color);
-            padding: 1rem 0;
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            text-align: center;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed);
         }
 
-        nav a {
-            color: var(--text-light);
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
             text-decoration: none;
-            margin: 0 1rem;
-            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
             transition: color 0.3s;
         }
 
-        nav a:hover {
-            color: var(--secondary-color);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Theme Toggle Button */
+        #theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        #theme-toggle:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Layout & Sections */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* Hero Section */
         .hero {
-            background-color: var(--bg-light);
-            padding: 6rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid #eee;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
         }
 
         .hero p {
             font-size: 1.2rem;
+            color: var(--text-muted);
             max-width: 600px;
-            margin: 0 auto 2rem auto;
-            color: #666;
+            margin-bottom: 2.5rem;
         }
 
         .btn {
             display: inline-block;
-            background-color: var(--secondary-color);
-            color: var(--text-light);
-            padding: 0.8rem 2rem;
+            padding: 1rem 2.5rem;
+            background-color: var(--text-main);
+            color: var(--bg-color);
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: transform 0.3s, background-color 0.3s;
+            border: 1px solid var(--text-main);
         }
 
         .btn:hover {
-            background-color: #d35400;
-            transform: translateY(-2px);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--secondary-color);
-            margin: 10px auto 0;
+            transform: translateY(-5px);
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
         }
 
         /* Portfolio Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
         }
 
         .card {
-            background: #fff;
-            border: 1px solid #eaeaea;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background-color: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border-color: var(--accent-color);
         }
 
-        .card h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
+        .card:hover::before { transform: scaleX(1); }
 
-        .tag {
-            display: inline-block;
-            background: var(--bg-light);
-            color: var(--secondary-color);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
+        .card-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
             margin-bottom: 1rem;
-            border: 1px solid #eee;
+            display: block;
         }
 
-        /* Contact Section */
-        .contact {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            text-align: center;
+        .card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 4rem 0;
+            margin: 4rem 0;
         }
 
-        .contact .section-title {
-            color: var(--text-light);
-        }
-
-        .contact a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 4rem; font-weight: 300; color: var(--accent-color); line-height: 1; }
+        .stat-label { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-top: 0.5rem;}
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 1.5rem;
-            background: #1a252f;
-            color: #7f8c8d;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            nav a { margin: 0 0.5rem; font-size: 0.9rem; }
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; } /* Simplified for mobile, could add hamburger */
+            .stats { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#about">About</a>
-        <a href="#portfolio">Work</a>
-        <a href="#contact">Contact</a>
+        <div class="nav-container">
+            <div class="brand">Focus 360</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#services">Services</a>
+                <button id="theme-toggle">Switch to Dark</button>
+            </div>
+        </div>
     </nav>
 
-    <section class="hero" id="about">
-        <h1>Hello, I'm [Your Name]</h1>
-        <p>A multi-disciplinary professional specializing in brand marketing, product development, and user-centric design.</p>
-        <a href="#portfolio" class="btn">View My Work</a>
+    <section id="home" class="hero">
+        <h1 class="animate-on-scroll">Designing the <br><span class="text-accent">Future</span> Since 1986.</h1>
+        <p class="animate-on-scroll" style="transition-delay: 0.2s;">
+            With four decades of global experience, Focus 360 transforms complex concepts into compelling visual narratives that drive engagement and define industry standards.
+        </p>
+        <div class="animate-on-scroll" style="transition-delay: 0.4s;">
+            <a href="#contact" class="btn">Commission a Project</a>
+        </div>
     </section>
 
-    <section class="container" id="portfolio">
-        <h2 class="section-title">Selected Projects</h2>
-        
-        <div class="grid">
-            <div class="card">
-                <span class="tag">FMCG Marketing</span>
-                <h3>Brand Activations & Market Strategy</h3>
-                <p>Developed comprehensive promotional strategies and competitor analysis for consumer food products, including NutriMorn White Oats and NutriSnax Oats Digestive, resulting in targeted advertising materials and market positioning.</p>
+    <section id="about" style="padding-top: 0;">
+        <div class="stats animate-on-scroll">
+            <div class="stat-item">
+                <div class="stat-number">40</div>
+                <div class="stat-label">Years Experience</div>
             </div>
-
-            <div class="card">
-                <span class="tag">Academic Research</span>
-                <h3>Ghanaian Consumer Behavior Analysis</h3>
-                <p>Authored a detailed academic analysis exploring economic shifts and evolving consumer behavioral patterns within the Ghanaian market from 2020 to 2025.</p>
+            <div class="stat-item">
+                <div class="stat-number">360°</div>
+                <div class="stat-label">Creative Vision</div>
             </div>
-
-            <div class="card">
-                <span class="tag">Product / UX</span>
-                <h3>LMS Dashboard Development</h3>
-                <p>Led feature ideation and structural improvements for a Learning Management System dashboard, bridging the gap between student needs and teacher utility for a more intuitive user experience.</p>
-            </div>
-
-            <div class="card">
-                <span class="tag">Graphic Design</span>
-                <h3>"Perk my Valentine" Campaign</h3>
-                <p>Designed the visual identity and promotional stickers for the 'Perk' brand's seasonal Valentine's Day gift bag initiative, driving brand engagement through creative assets.</p>
+            <div class="stat-item">
+                <div class="stat-number">10k+</div>
+                <div class="stat-label">Assets Delivered</div>
             </div>
         </div>
     </section>
 
-    <section class="container contact" id="contact" style="max-width: 100%; padding: 4rem 2rem;">
-        <h2 class="section-title">Let's Connect</h2>
-        <p>Currently based in Nigeria and open to new opportunities and collaborations.</p>
-        <p style="margin-top: 1.5rem;">
-            Email me at: <a href="mailto:your.email@example.com">your.email@example.com</a>
-        </p>
+    <section id="portfolio">
+        <div class="section-header animate-on-scroll">
+            <h2>Selected Works</h2>
+        </div>
+        
+        <div class="grid">
+            <div class="card animate-on-scroll">
+                <span class="card-category">FMCG Brand Activation</span>
+                <h3>NutriMorn & NutriSnax</h3>
+                <p>Developed high-impact visual strategies and promotional materials for market entry. Directed design for consumer-facing advertisements that elevated product visibility against global competitors.</p>
+            </div>
+
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s;">
+                <span class="card-category">Campaign & Packaging</span>
+                <h3>"Perk My Valentine"</h3>
+                <p>Engineered the seasonal visual identity and custom sticker designs for the 'Perk' brand. The design successfully merged emotional resonance with striking retail shelf appeal.</p>
+            </div>
+
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s;">
+                <span class="card-category">UI / UX Design</span>
+                <h3>Educational LMS Dashboard</h3>
+                <p>Architected the interface and user experience for a comprehensive Learning Management System. The design prioritized intuitive navigation and accessibility for both educators and students.</p>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 [Your Name]. All rights reserved.</p>
+    <section id="services">
+        <div class="section-header animate-on-scroll">
+            <h2>Expertise</h2>
+        </div>
+        <div class="grid">
+            <div class="card animate-on-scroll">
+                <h3>Brand Identity</h3>
+                <p>Creating timeless logos, typography, and visual systems that anchor your brand in the minds of your target audience.</p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.1s;">
+                <h3>Advertising Design</h3>
+                <p>Crafting compelling promotional materials tailored for both digital campaigns and high-end print production.</p>
+            </div>
+            <div class="card animate-on-scroll" style="transition-delay: 0.2s;">
+                <h3>Art Direction</h3>
+                <p>Overseeing the creative vision of large-scale projects from conceptualization through to final market execution.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="animate-on-scroll">
+        <h2 style="margin-bottom: 1rem; font-size: 2rem;">Ready to elevate your brand?</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Contact Focus 360 for high-level creative consultation.</p>
+        <a href="mailto:hello@focus360.com" class="btn">hello@focus360.com</a>
+        <p style="margin-top: 4rem; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+            &copy; 2026 Focus 360. All rights reserved.
+        </p>
     </footer>
 
+    <script>
+        // --- 1. Theme Toggle Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeToggleBtn.textContent = 'Switch to Light';
+            } else {
+                htmlElement.setAttribute('data-theme', 'light');
+                themeToggleBtn.textContent = 'Switch to Dark';
+            }
+        });
+
+        // --- 2. Scroll Animation Logic ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 // Triggers when 15% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        // Target all elements with the 'animate-on-scroll' class
+        document.querySelectorAll('.animate-on-scroll').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
 </body>
 </html>
