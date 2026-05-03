@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Your Timeline — VisaPulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/submit.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo"><span class="logo-pulse"></span>VisaPulse</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Slots</a>
+        <a href="pages/timelines.html" class="nav-link">Timelines</a>
+        <a href="submit.html" class="nav-link active">Submit</a>
+      </div>
+      <a href="pages/timelines.html" class="btn-nav">View timelines</a>
+    </div>
+  </nav>
+
+  <div class="submit-page">
+    <div class="submit-left">
+      <div class="submit-why">
+        <div class="why-icon">📊</div>
+        <h2 class="why-title">Your timeline helps thousands</h2>
+        <p class="why-body">People going through the same visa process check this site every day looking for someone who applied in the same week, from the same country. Your data could be exactly what they need.</p>
+
+        <div class="why-stats">
+          <div class="why-stat">
+            <span class="why-num">1,840</span>
+            <span class="why-lbl">timelines submitted</span>
+          </div>
+          <div class="why-stat">
+            <span class="why-num">38</span>
+            <span class="why-lbl">countries represented</span>
+          </div>
+        </div>
+
+        <div class="why-quote">
+          <div class="quote-mark">"</div>
+          <p>Finding someone who applied the same week from Lagos and got approved in 63 days was the only thing that calmed me down for two weeks.</p>
+          <span class="quote-attr">— UK Skilled Worker applicant, Nigeria</span>
+        </div>
+
+        <div class="why-steps">
+          <div class="why-step"><span class="step-num">1</span><span>Takes 60 seconds</span></div>
+          <div class="why-step"><span class="step-num">2</span><span>Instant comparison after submission</span></div>
+          <div class="why-step"><span class="step-num">3</span><span>You can update as your case progresses</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-right">
+      <!-- STEP INDICATOR -->
+      <div class="steps-indicator" id="stepsIndicator">
+        <div class="step-dot step-dot-on" data-step="1">1</div>
+        <div class="step-line"></div>
+        <div class="step-dot" data-step="2">2</div>
+        <div class="step-line"></div>
+        <div class="step-dot" data-step="3">3</div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="form-card">
+
+        <!-- STEP 1: Visa info -->
+        <div class="form-step" id="step1">
+          <h3 class="form-step-title">Visa details</h3>
+          <p class="form-step-sub">Tell us what you applied for and where</p>
+
+          <div class="form-group">
+            <label>Visa type</label>
+            <select id="visaType" required>
+              <option value="">Select visa type…</option>
+              <option value="uk-sw">UK Skilled Worker</option>
+              <option value="uk-student">UK Student Visa</option>
+              <option value="uk-family">UK Family/Spouse Visa</option>
+              <option value="us-b1b2">US B1/B2 Tourist/Business</option>
+              <option value="us-f1">US F1 Student</option>
+              <option value="us-h1b">US H-1B</option>
+              <option value="schengen">Schengen (specify country in notes)</option>
+              <option value="canada">Canada PR / Express Entry</option>
+              <option value="canada-study">Canada Student Visa</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Country of application</label>
+              <select id="appCountry" required>
+                <option value="">Select country…</option>
+                <option value="nigeria">Nigeria</option>
+                <option value="ghana">Ghana</option>
+                <option value="kenya">Kenya</option>
+                <option value="south-africa">South Africa</option>
+                <option value="india">India</option>
+                <option value="pakistan">Pakistan</option>
+                <option value="bangladesh">Bangladesh</option>
+                <option value="philippines">Philippines</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>City / VFS centre</label>
+              <input type="text" id="city" placeholder="e.g. Lagos, Mumbai…" />
+            </div>
+          </div>
+
+          <button class="btn-primary btn-full" onclick="goStep(2)">Continue →</button>
+        </div>
+
+        <!-- STEP 2: Dates -->
+        <div class="form-step hidden" id="step2">
+          <h3 class="form-step-title">Your dates</h3>
+          <p class="form-step-sub">Add what you know — leave blank if not yet reached</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Application date <span class="required">*</span></label>
+              <input type="date" id="appDate" required />
+            </div>
+            <div class="form-group">
+              <label>Biometrics / interview date</label>
+              <input type="date" id="bioDate" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Decision date</label>
+              <input type="date" id="decisionDate" />
+            </div>
+            <div class="form-group">
+              <label>Approval / issue date</label>
+              <input type="date" id="approvalDate" />
+            </div>
+          </div>
+
+          <!-- Live preview -->
+          <div class="tl-preview" id="tlPreview" style="display:none">
+            <div class="preview-label">Your timeline preview</div>
+            <div class="tl-bar" id="previewBar">
+              <div class="seg seg-wait" style="flex:3"></div>
+            </div>
+            <div class="tl-bar-labels"><span>Applied</span><span id="previewBioLabel"></span><span id="previewDecLabel"></span><span id="previewApprLabel"></span></div>
+            <div class="preview-days" id="previewDays"></div>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn-back" onclick="goStep(1)">← Back</button>
+            <button class="btn-primary" onclick="goStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Outcome + notes -->
+        <div class="form-step hidden" id="step3">
+          <h3 class="form-step-title">Outcome & notes</h3>
+          <p class="form-step-sub">Optional — but incredibly helpful to others</p>
+
+          <div class="form-group">
+            <label>Current outcome</label>
+            <div class="outcome-options">
+              <label class="outcome-opt">
+                <input type="radio" name="outcome" value="approved" />
+                <span class="outcome-opt-label outcome-opt-approved">Approved</span>
+              </label>
+              <label class="outcome-opt">
+                <input type="radio" name="outcome" value="pending" checked />
+                <span class="outcome-opt-label outcome-opt-pending">Still waiting</span>
+              </label>
+              <label class="outcome-opt">
+                <input type="radio" name="outcome" value="refused" />
+                <span class="outcome-opt-label outcome-opt-refused">Refused</span>
+              </label>
+              <label class="outcome-opt">
+                <input type="radio" name="outcome" value="rfe" />
+                <span class="outcome-opt-label outcome-opt-rfe">RFE / docs requested</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Notes <span class="optional">(optional but valuable)</span></label>
+            <textarea id="notes" rows="4" placeholder="What was your experience? Any delays, admin processing, extra docs requested? This is the most helpful part for others in the same situation."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Email <span class="optional">(optional — to track your case over time)</span></label>
+            <input type="email" id="email" placeholder="your@email.com" />
+            <div class="field-note">Only used to let you update your timeline as it progresses. Never shared.</div>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn-back" onclick="goStep(2)">← Back</button>
+            <button class="btn-primary" onclick="submitForm()">Submit timeline →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS STATE -->
+  <div class="success-overlay" id="successOverlay" style="display:none">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Timeline submitted</h2>
+      <p class="success-body">Thank you. Your data helps thousands of people who are going through the same thing right now.</p>
+      <div class="success-compare" id="successCompare">
+        <div class="sc-label">How you compare to similar cases</div>
+        <div class="sc-stats">
+          <div class="sc-stat">
+            <div class="sc-num" id="scAvg">—</div>
+            <div class="sc-lbl">average days</div>
+          </div>
+          <div class="sc-divider"></div>
+          <div class="sc-stat">
+            <div class="sc-num" id="scCount">47</div>
+            <div class="sc-lbl">similar timelines</div>
+          </div>
+        </div>
+      </div>
+      <div class="success-actions">
+        <a href="pages/timelines.html" class="btn-primary">Browse all timelines →</a>
+        <a href="index.html" class="btn-secondary">Back to home</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo"><span class="logo-pulse logo-pulse-sm"></span>VisaPulse</div>
+      <div class="footer-links">
+        <a href="#">About</a><a href="#">Privacy</a>
+        <a href="index.html">Home</a>
+      </div>
+      <div class="footer-note">Community-powered · Not affiliated with any government agency</div>
+    </div>
+  </footer>
+
+  <script src="js/submit.js"></script>
+</body>
+</html>
