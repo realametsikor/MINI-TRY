@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Processing Timelines — VisaPulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/timelines.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo"><span class="logo-pulse"></span>VisaPulse</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Slots</a>
+        <a href="timelines.html" class="nav-link active">Timelines</a>
+        <a href="submit.html" class="nav-link">Submit</a>
+      </div>
+      <a href="submit.html" class="btn-nav">Add your timeline</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <h1 class="page-title">Processing timelines</h1>
+        <p class="page-sub">Crowd-sourced from real applicants. Updated in real-time.</p>
+      </div>
+      <div class="header-stats">
+        <div class="hstat-sm"><span class="mono-num">1,840</span><span>timelines</span></div>
+        <div class="hstat-sm-div"></div>
+        <div class="hstat-sm"><span class="mono-num">3</span><span>approvals today</span></div>
+        <div class="hstat-sm-div"></div>
+        <div class="hstat-sm"><span class="mono-num">5</span><span>added today</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-page">
+
+    <!-- SIDEBAR FILTERS -->
+    <aside class="tl-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Visa type</div>
+        <div class="sidebar-options" id="visaFilter">
+          <button class="sfilter sfilter-on" data-val="all">All types</button>
+          <button class="sfilter" data-val="uk-sw">UK Skilled Worker</button>
+          <button class="sfilter" data-val="uk-student">UK Student</button>
+          <button class="sfilter" data-val="schengen">Schengen</button>
+          <button class="sfilter" data-val="us-b1b2">US B1/B2</button>
+          <button class="sfilter" data-val="us-f1">US F1</button>
+          <button class="sfilter" data-val="canada">Canada PR</button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Country of application</div>
+        <div class="sidebar-options" id="countryFilter">
+          <button class="sfilter sfilter-on" data-val="all">All countries</button>
+          <button class="sfilter" data-val="nigeria">Nigeria</button>
+          <button class="sfilter" data-val="ghana">Ghana</button>
+          <button class="sfilter" data-val="kenya">Kenya</button>
+          <button class="sfilter" data-val="india">India</button>
+          <button class="sfilter" data-val="pakistan">Pakistan</button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Outcome</div>
+        <div class="sidebar-options" id="outcomeFilter">
+          <button class="sfilter sfilter-on" data-val="all">All outcomes</button>
+          <button class="sfilter" data-val="approved">Approved</button>
+          <button class="sfilter" data-val="pending">Still waiting</button>
+          <button class="sfilter" data-val="refused">Refused</button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Applied</div>
+        <div class="sidebar-options" id="dateFilter">
+          <button class="sfilter sfilter-on" data-val="all">Any time</button>
+          <button class="sfilter" data-val="30d">Last 30 days</button>
+          <button class="sfilter" data-val="90d">Last 3 months</button>
+          <button class="sfilter" data-val="2025">In 2025</button>
+        </div>
+      </div>
+
+      <a href="submit.html" class="sidebar-cta">
+        <strong>Add your timeline</strong>
+        <span>Help others going through the same process</span>
+      </a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="tl-main">
+
+      <!-- COMPARE BANNER (appears after filters selected) -->
+      <div class="compare-banner" id="compareBanner">
+        <div class="cb-left">
+          <div class="cb-title" id="cbTitle">UK Skilled Worker · Nigeria</div>
+          <div class="cb-sub">Based on 47 matching timelines</div>
+        </div>
+        <div class="cb-stats">
+          <div class="cb-stat">
+            <div class="cb-num">61</div>
+            <div class="cb-lbl">avg days</div>
+          </div>
+          <div class="cb-stat">
+            <div class="cb-num">43</div>
+            <div class="cb-lbl">fastest</div>
+          </div>
+          <div class="cb-stat">
+            <div class="cb-num">89</div>
+            <div class="cb-lbl">slowest</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SORT ROW -->
+      <div class="sort-row">
+        <span class="sort-label">Sort by</span>
+        <select class="sort-select" onchange="sortTimelines(this.value)">
+          <option value="recent">Most recent</option>
+          <option value="fastest">Fastest first</option>
+          <option value="slowest">Slowest first</option>
+        </select>
+        <span class="result-count" id="resultCount">Showing 8 timelines</span>
+      </div>
+
+      <!-- TIMELINE LIST -->
+      <div id="tlPageList">
+
+        <div class="tl-full-card" data-visa="uk-sw" data-country="nigeria" data-outcome="approved" data-days="63">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">UK Skilled Worker</span>
+              <span class="tl-full-origin">Nigeria · Lagos</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-approved">Approved</span>
+              <span class="tl-full-days">63 days</span>
+            </div>
+          </div>
+          <div class="tl-milestones">
+            <div class="milestone">
+              <div class="ms-dot dot-applied"></div>
+              <div class="ms-info"><div class="ms-label">Applied</div><div class="ms-date">Apr 1, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-bio"></div>
+              <div class="ms-info"><div class="ms-label">Biometrics</div><div class="ms-date">Apr 9, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-decision"></div>
+              <div class="ms-info"><div class="ms-label">Decision</div><div class="ms-date">May 28, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-done"></div>
+              <div class="ms-info"><div class="ms-label">Approved</div><div class="ms-date">Jun 3, 2026</div></div>
+            </div>
+          </div>
+          <div class="tl-bar" style="margin-top:10px">
+            <div class="seg seg-wait" style="flex:2" title="Waiting 28d"></div>
+            <div class="seg seg-bio" style="flex:0.8"></div>
+            <div class="seg seg-decision" style="flex:2"></div>
+            <div class="seg seg-done" style="flex:0.6"></div>
+          </div>
+          <div class="tl-bar-labels"><span>Applied</span><span>Biometrics</span><span>Decision</span><span>Approved</span></div>
+          <div class="tl-full-note">No RFE. Standard processing. Applied under new 2026 electronic entry requirements.</div>
+        </div>
+
+        <div class="tl-full-card" data-visa="schengen" data-country="ghana" data-outcome="approved" data-days="41">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">Schengen (Germany)</span>
+              <span class="tl-full-origin">Ghana · Accra</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-approved">Approved</span>
+              <span class="tl-full-days">41 days</span>
+            </div>
+          </div>
+          <div class="tl-milestones">
+            <div class="milestone">
+              <div class="ms-dot dot-applied"></div>
+              <div class="ms-info"><div class="ms-label">Applied</div><div class="ms-date">Apr 10, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-bio"></div>
+              <div class="ms-info"><div class="ms-label">Biometrics</div><div class="ms-date">Apr 18, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-decision"></div>
+              <div class="ms-info"><div class="ms-label">Decision</div><div class="ms-date">May 18, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-done"></div>
+              <div class="ms-info"><div class="ms-label">Approved</div><div class="ms-date">May 21, 2026</div></div>
+            </div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:1"></div>
+            <div class="seg seg-bio" style="flex:0.8"></div>
+            <div class="seg seg-decision" style="flex:1.5"></div>
+            <div class="seg seg-done" style="flex:0.3"></div>
+          </div>
+          <div class="tl-bar-labels"><span>Applied</span><span>Biometrics</span><span>Decision</span><span>Approved</span></div>
+        </div>
+
+        <div class="tl-full-card" data-visa="us-b1b2" data-country="india" data-outcome="approved" data-days="78">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">US B1/B2</span>
+              <span class="tl-full-origin">India · Mumbai</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-approved">Approved</span>
+              <span class="tl-full-days">78 days</span>
+            </div>
+          </div>
+          <div class="tl-milestones">
+            <div class="milestone">
+              <div class="ms-dot dot-applied"></div>
+              <div class="ms-info"><div class="ms-label">Applied</div><div class="ms-date">Jan 14, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-bio"></div>
+              <div class="ms-info"><div class="ms-label">Interview</div><div class="ms-date">Feb 28, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-decision"></div>
+              <div class="ms-info"><div class="ms-label">Admin proc.</div><div class="ms-date">Mar 10, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-done"></div>
+              <div class="ms-info"><div class="ms-label">Approved</div><div class="ms-date">Apr 2, 2026</div></div>
+            </div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:3"></div>
+            <div class="seg seg-bio" style="flex:0.5"></div>
+            <div class="seg seg-decision" style="flex:1.5"></div>
+            <div class="seg seg-done" style="flex:0.4"></div>
+          </div>
+          <div class="tl-bar-labels"><span>Applied</span><span>Interview</span><span>Admin</span><span>Issued</span></div>
+          <div class="tl-full-note">Brief administrative processing delay — resolved without additional documents requested.</div>
+        </div>
+
+        <div class="tl-full-card" data-visa="uk-student" data-country="nigeria" data-outcome="approved" data-days="21">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">UK Student Visa</span>
+              <span class="tl-full-origin">Nigeria · Abuja</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-approved">Approved</span>
+              <span class="tl-full-days">21 days</span>
+            </div>
+          </div>
+          <div class="tl-milestones">
+            <div class="milestone">
+              <div class="ms-dot dot-applied"></div>
+              <div class="ms-info"><div class="ms-label">Applied</div><div class="ms-date">Apr 20, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-bio"></div>
+              <div class="ms-info"><div class="ms-label">Biometrics</div><div class="ms-date">Apr 22, 2026</div></div>
+            </div>
+            <div class="ms-line ms-short"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-done"></div>
+              <div class="ms-info"><div class="ms-label">Approved</div><div class="ms-date">May 11, 2026</div></div>
+            </div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:0.5"></div>
+            <div class="seg seg-bio" style="flex:0.3"></div>
+            <div class="seg seg-done" style="flex:2.5"></div>
+          </div>
+          <div class="tl-bar-labels"><span>Applied</span><span>Biometrics</span><span></span><span>Approved</span></div>
+        </div>
+
+        <div class="tl-full-card" data-visa="us-b1b2" data-country="nigeria" data-outcome="pending" data-days="112">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">US B1/B2</span>
+              <span class="tl-full-origin">Nigeria · Lagos</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-pending">Still waiting</span>
+              <span class="tl-full-days" style="color:var(--amber)">112 days+</span>
+            </div>
+          </div>
+          <div class="tl-milestones">
+            <div class="milestone">
+              <div class="ms-dot dot-applied"></div>
+              <div class="ms-info"><div class="ms-label">Applied</div><div class="ms-date">Jan 11, 2026</div></div>
+            </div>
+            <div class="ms-line"></div>
+            <div class="milestone">
+              <div class="ms-dot dot-bio"></div>
+              <div class="ms-info"><div class="ms-label">Interview</div><div class="ms-date">Feb 20, 2026</div></div>
+            </div>
+            <div class="ms-line ms-dashed"></div>
+            <div class="milestone" style="opacity:0.4">
+              <div class="ms-dot dot-pending"></div>
+              <div class="ms-info"><div class="ms-label">Waiting…</div><div class="ms-date">—</div></div>
+            </div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:2.5"></div>
+            <div class="seg seg-bio" style="flex:0.5"></div>
+            <div class="seg" style="flex:4; background: repeating-linear-gradient(45deg,#f0e4c4,#f0e4c4 4px,#fef3e2 4px,#fef3e2 8px);"></div>
+          </div>
+          <div class="tl-bar-labels"><span>Applied</span><span>Interview</span><span colspan="2">Waiting (112d)</span></div>
+          <div class="tl-full-note">Administrative processing since interview. No RFE received. Posted to help track how long this continues.</div>
+        </div>
+
+        <div class="tl-full-card" data-visa="canada" data-country="nigeria" data-outcome="approved" data-days="547">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">Canada PR (Express Entry)</span>
+              <span class="tl-full-origin">Nigeria</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-approved">Approved</span>
+              <span class="tl-full-days">547 days</span>
+            </div>
+          </div>
+          <div class="tl-bar" style="margin-top:12px">
+            <div class="seg seg-wait" style="flex:3"></div>
+            <div class="seg seg-bio" style="flex:1"></div>
+            <div class="seg seg-decision" style="flex:2"></div>
+            <div class="seg seg-done" style="flex:0.5"></div>
+          </div>
+          <div class="tl-bar-labels"><span>ITA</span><span>Biometrics</span><span>Medical/BG</span><span>COPR</span></div>
+          <div class="tl-full-note">ITA: Sep 2024 · Biometrics: Oct 2024 · Medical: Dec 2024 · COPR: Apr 2026. Longer than average due to background check.</div>
+        </div>
+
+        <div class="tl-full-card" data-visa="schengen" data-country="pakistan" data-outcome="refused" data-days="18">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">Schengen (Italy)</span>
+              <span class="tl-full-origin">Pakistan · Islamabad</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-refused">Refused</span>
+              <span class="tl-full-days" style="color:var(--red)">18 days</span>
+            </div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:2"></div>
+            <div class="seg" style="flex:1; background: var(--red-light);"></div>
+          </div>
+          <div class="tl-bar-labels"><span>Applied</span><span></span><span></span><span>Refused</span></div>
+          <div class="tl-full-note">Refused: insufficient proof of ties to home country. Reapplying with additional bank statements and employment letter.</div>
+        </div>
+
+        <div class="tl-full-card" data-visa="uk-sw" data-country="kenya" data-outcome="approved" data-days="49">
+          <div class="tl-full-head">
+            <div class="tl-full-meta">
+              <span class="tl-full-type">UK Skilled Worker</span>
+              <span class="tl-full-origin">Kenya · Nairobi</span>
+            </div>
+            <div class="tl-full-right">
+              <span class="outcome-badge outcome-approved">Approved</span>
+              <span class="tl-full-days">49 days</span>
+            </div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:1.5"></div>
+            <div class="seg seg-bio" style="flex:0.5"></div>
+            <div class="seg seg-decision" style="flex:1.5"></div>
+            <div class="seg seg-done" style="flex:0.5"></div>
+          </div>
+          <div class="tl-bar-labels"><span>Applied</span><span>Biometrics</span><span>Decision</span><span>Approved</span></div>
+        </div>
+
+      </div>
+
+      <!-- EMPTY STATE (hidden by default) -->
+      <div class="empty-state" id="emptyState" style="display:none">
+        <div class="empty-icon">📭</div>
+        <div class="empty-title">No timelines yet for this combination</div>
+        <div class="empty-sub">Be the first to add one — it helps everyone who applies after you.</div>
+        <a href="submit.html" class="btn-primary" style="margin-top:16px">Add my timeline →</a>
+        <div class="empty-samples">
+          <div class="empty-sample-label">What a timeline looks like</div>
+          <div class="tl-full-card sample-card">
+            <div class="tl-full-head">
+              <div class="tl-full-meta"><span class="tl-full-type">Sample timeline</span><span class="tl-full-origin">Your country</span></div>
+              <div class="tl-full-right"><span class="outcome-badge outcome-approved">Approved</span><span class="tl-full-days">XX days</span></div>
+            </div>
+            <div class="tl-bar" style="margin-top:10px">
+              <div class="seg seg-wait" style="flex:2"></div>
+              <div class="seg seg-bio" style="flex:1"></div>
+              <div class="seg seg-done" style="flex:1.5"></div>
+            </div>
+            <div class="tl-bar-labels"><span>Applied</span><span>Biometrics</span><span></span><span>Approved</span></div>
+            <div class="tl-full-note empty-note">This is where notes about the experience go. People find these incredibly helpful.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="submit-banner">
+    <div class="submit-banner-inner">
+      <div class="submit-banner-text">
+        <h3>Applied for a visa? Add your timeline.</h3>
+        <p>Takes 60 seconds. Helps thousands. See how you compare instantly.</p>
+      </div>
+      <a href="submit.html" class="btn-primary">Add my timeline →</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo"><span class="logo-pulse logo-pulse-sm"></span>VisaPulse</div>
+      <div class="footer-links">
+        <a href="#">About</a><a href="#">Privacy</a>
+        <a href="index.html">Home</a><a href="submit.html">Submit</a>
+      </div>
+      <div class="footer-note">Community-powered · Not affiliated with any government agency</div>
+    </div>
+  </footer>
+
+  <script src="js/timelines.js"></script>
+</body>
+</html>
