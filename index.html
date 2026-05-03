@@ -1,417 +1,316 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Focus 360 | Master Graphic Design</title>
-    <style>
-        /* CSS Variables for Light/Dark Mode */
-        :root {
-            --bg-color: #ffffff;
-            --text-main: #1a1a1a;
-            --text-muted: #555555;
-            --accent-color: #cda34f; /* Elegant Gold */
-            --accent-hover: #a88136;
-            --nav-bg: rgba(255, 255, 255, 0.95);
-            --card-bg: #f9f9f9;
-            --border-color: #eeeeee;
-            --transition-speed: 0.4s;
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #0a0a0a;
-            --text-main: #f5f5f5;
-            --text-muted: #aaaaaa;
-            --accent-color: #e5b85c;
-            --accent-hover: #ffd700;
-            --nav-bg: rgba(10, 10, 10, 0.95);
-            --card-bg: #151515;
-            --border-color: #222222;
-        }
-
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            transition: background-color var(--transition-speed), color var(--transition-speed);
-            overflow-x: hidden;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        /* Typography */
-        h1, h2, h3 { font-weight: 300; letter-spacing: 1px; }
-        .text-accent { color: var(--accent-color); font-weight: 500; }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background-color: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color var(--transition-speed);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            transition: color 0.3s;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--accent-color);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after { width: 100%; }
-
-        /* Theme Toggle Button */
-        #theme-toggle {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        #theme-toggle:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-
-        /* Layout & Sections */
-        section {
-            padding: 8rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            margin-bottom: 4rem;
-            text-align: center;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .hero h1 {
-            font-size: 5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background-color: var(--text-main);
-            color: var(--bg-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            transition: transform 0.3s, background-color 0.3s;
-            border: 1px solid var(--text-main);
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-            color: #fff;
-        }
-
-        /* Portfolio Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 3rem 2rem;
-            transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background-color: var(--accent-color);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border-color: var(--accent-color);
-        }
-
-        .card:hover::before { transform: scaleX(1); }
-
-        .card-category {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; }
-
-        /* Stats Section */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 2rem;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 4rem 0;
-            margin: 4rem 0;
-        }
-
-        .stat-item { text-align: center; }
-        .stat-number { font-size: 4rem; font-weight: 300; color: var(--accent-color); line-height: 1; }
-        .stat-label { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-top: 0.5rem;}
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 4rem 2rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
-        }
-
-        /* Animations */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .nav-links { display: none; } /* Simplified for mobile, could add hamburger */
-            .stats { flex-direction: column; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisaPulse — Real-time visa slot tracking & processing timelines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/home.css" />
 </head>
 <body>
 
-    <nav>
-        <div class="nav-container">
-            <div class="brand">Focus 360</div>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#services">Services</a>
-                <button id="theme-toggle">Switch to Dark</button>
-            </div>
-        </div>
-    </nav>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-pulse"></span>
+        VisaPulse
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Slots</a>
+        <a href="timelines.html" class="nav-link">Timelines</a>
+        <a href="submit.html" class="nav-link">Submit</a>
+      </div>
+      <a href="submit.html" class="btn-nav">Add your timeline</a>
+    </div>
+  </nav>
 
-    <section id="home" class="hero">
-        <h1 class="animate-on-scroll">Designing the <br><span class="text-accent">Future</span> Since 1986.</h1>
-        <p class="animate-on-scroll" style="transition-delay: 0.2s;">
-            With four decades of global experience, Focus 360 transforms complex concepts into compelling visual narratives that drive engagement and define industry standards.
-        </p>
-        <div class="animate-on-scroll" style="transition-delay: 0.4s;">
-            <a href="#contact" class="btn">Commission a Project</a>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="live-chip"><span class="live-dot"></span> Live</div>
+      <h1 class="hero-title">Track visa slots.<br><em>Compare real timelines.</em></h1>
+      <p class="hero-sub">Crowd-sourced from people going through the same process as you. No official data. Just real people, real waits.</p>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-num" id="slotCount">247</span><span class="hstat-lbl">slots reported today</span></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><span class="hstat-num" id="tlCount">1,840</span><span class="hstat-lbl">timelines submitted</span></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><span class="hstat-num">38</span><span class="hstat-lbl">countries tracked</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITY TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="ticker">
+      <span class="tick-item tick-slot">⚡ Lagos US Consulate — B1/B2 slot seen 4 min ago</span>
+      <span class="tick-item tick-approval">✓ UK Skilled Worker approved · Nigeria · 63 days</span>
+      <span class="tick-item tick-slot">⚡ Accra German Embassy — Schengen slot this morning</span>
+      <span class="tick-item tick-approval">✓ Schengen (France) approved · Ghana · 38 days</span>
+      <span class="tick-item tick-info">📊 5 new timelines added in last 2 hours</span>
+      <span class="tick-item tick-slot">⚡ Nairobi UK VFS — Skilled Worker slot opened</span>
+      <span class="tick-item tick-approval">✓ US B1/B2 approved · India · 14 weeks</span>
+      <span class="tick-item tick-info">📊 3 approvals reported in last 24 hours</span>
+      <span class="tick-item tick-slot">⚡ Mumbai US Consulate — F1 slot available</span>
+      <span class="tick-item tick-approval">✓ Canada PR approved · Nigeria · 18 months</span>
+      <!-- duplicate for loop -->
+      <span class="tick-item tick-slot">⚡ Lagos US Consulate — B1/B2 slot seen 4 min ago</span>
+      <span class="tick-item tick-approval">✓ UK Skilled Worker approved · Nigeria · 63 days</span>
+      <span class="tick-item tick-slot">⚡ Accra German Embassy — Schengen slot this morning</span>
+      <span class="tick-item tick-approval">✓ Schengen (France) approved · Ghana · 38 days</span>
+      <span class="tick-item tick-info">📊 5 new timelines added in last 2 hours</span>
+    </div>
+  </div>
+
+  <!-- DUAL PANEL -->
+  <main class="dual">
+
+    <!-- LEFT: SLOTS -->
+    <section class="panel panel-slots">
+      <div class="panel-head">
+        <div class="panel-title-row">
+          <span class="panel-icon slot-icon">⚡</span>
+          <h2 class="panel-title">Live slot activity</h2>
         </div>
+        <a href="#" class="see-all">See all →</a>
+      </div>
+
+      <div class="filter-row">
+        <button class="chip chip-on" onclick="filterSlots(this,'all')">All</button>
+        <button class="chip" onclick="filterSlots(this,'us')">US visa</button>
+        <button class="chip" onclick="filterSlots(this,'uk')">UK visa</button>
+        <button class="chip" onclick="filterSlots(this,'schengen')">Schengen</button>
+      </div>
+
+      <div id="slotList">
+        <div class="slot-card" data-cat="us">
+          <div class="slot-info">
+            <div class="slot-embassy">Lagos — US Consulate</div>
+            <div class="slot-meta">B1/B2 · Reported 6 min ago · <span class="reporter">by user</span></div>
+          </div>
+          <span class="badge badge-now">Now</span>
+        </div>
+        <div class="slot-card" data-cat="schengen">
+          <div class="slot-info">
+            <div class="slot-embassy">Accra — German Embassy</div>
+            <div class="slot-meta">Schengen tourist · 2 hrs ago</div>
+          </div>
+          <span class="badge badge-soon">2 days</span>
+        </div>
+        <div class="slot-card" data-cat="uk">
+          <div class="slot-info">
+            <div class="slot-embassy">Nairobi — UK VFS</div>
+            <div class="slot-meta">Skilled Worker · 5 hrs ago</div>
+          </div>
+          <span class="badge badge-week">This week</span>
+        </div>
+        <div class="slot-card" data-cat="us">
+          <div class="slot-info">
+            <div class="slot-embassy">Abuja — US Consulate</div>
+            <div class="slot-meta">F1 student · 1 hr ago</div>
+          </div>
+          <span class="badge badge-soon">Tomorrow</span>
+        </div>
+        <div class="slot-card" data-cat="schengen">
+          <div class="slot-info">
+            <div class="slot-embassy">Cairo — French Embassy</div>
+            <div class="slot-meta">Schengen · 3 hrs ago</div>
+          </div>
+          <span class="badge badge-week">This week</span>
+        </div>
+        <div class="slot-card" data-cat="uk">
+          <div class="slot-info">
+            <div class="slot-embassy">Dhaka — UK VFS</div>
+            <div class="slot-meta">Student visa · 30 min ago</div>
+          </div>
+          <span class="badge badge-now">Now</span>
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-icon">🔔</div>
+        <div class="alert-body">
+          <div class="alert-title">Get instant alerts</div>
+          <div class="alert-sub">Be notified the moment a slot appears at your embassy</div>
+        </div>
+        <button class="btn-alert" onclick="openAlertModal()">Set alert</button>
+      </div>
+
+      <a href="report.html" class="report-btn">
+        <span class="report-icon">+</span>
+        Report a slot you saw
+      </a>
     </section>
 
-    <section id="about" style="padding-top: 0;">
-        <div class="stats animate-on-scroll">
-            <div class="stat-item">
-                <div class="stat-number">40</div>
-                <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">360°</div>
-                <div class="stat-label">Creative Vision</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">10k+</div>
-                <div class="stat-label">Assets Delivered</div>
-            </div>
+    <!-- RIGHT: TIMELINES -->
+    <section class="panel panel-timelines">
+      <div class="panel-head">
+        <div class="panel-title-row">
+          <span class="panel-icon tl-icon">📊</span>
+          <h2 class="panel-title">Processing timelines</h2>
         </div>
+        <a href="timelines.html" class="see-all">See all →</a>
+      </div>
+
+      <div class="avg-row">
+        <div class="avg-card">
+          <div class="avg-num">63<span class="avg-unit">d</span></div>
+          <div class="avg-lbl">UK Skilled Worker avg</div>
+        </div>
+        <div class="avg-card">
+          <div class="avg-num">41<span class="avg-unit">d</span></div>
+          <div class="avg-lbl">Schengen avg</div>
+        </div>
+        <div class="avg-card">
+          <div class="avg-num">18<span class="avg-unit">wk</span></div>
+          <div class="avg-lbl">US B1/B2 avg</div>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <button class="chip chip-tl chip-on" onclick="filterTL(this,'all')">All</button>
+        <button class="chip chip-tl" onclick="filterTL(this,'uk')">UK visa</button>
+        <button class="chip chip-tl" onclick="filterTL(this,'us')">US visa</button>
+        <button class="chip chip-tl" onclick="filterTL(this,'schengen')">Schengen</button>
+      </div>
+
+      <div id="tlList">
+        <div class="tl-card" data-cat="uk">
+          <div class="tl-head">
+            <div>
+              <div class="tl-type">UK Skilled Worker</div>
+              <div class="tl-origin">Nigeria · Applied Apr 1 · Approved Jun 3</div>
+            </div>
+            <div class="tl-duration">63 days</div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:2" title="Waiting: 28d"></div>
+            <div class="seg seg-bio" style="flex:0.8" title="Biometrics: 8d"></div>
+            <div class="seg seg-decision" style="flex:2" title="Decision: 20d"></div>
+            <div class="seg seg-done" style="flex:0.6" title="Approved: 7d"></div>
+          </div>
+          <div class="tl-bar-labels">
+            <span>Applied</span><span>Biometrics</span><span>Decision</span><span>Approved</span>
+          </div>
+        </div>
+
+        <div class="tl-card" data-cat="schengen">
+          <div class="tl-head">
+            <div>
+              <div class="tl-type">Schengen (Germany)</div>
+              <div class="tl-origin">Ghana · Applied Apr 10 · Approved May 21</div>
+            </div>
+            <div class="tl-duration">41 days</div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:1" title="Waiting: 12d"></div>
+            <div class="seg seg-bio" style="flex:0.8" title="Biometrics: 10d"></div>
+            <div class="seg seg-decision" style="flex:1.5" title="Decision: 15d"></div>
+            <div class="seg seg-done" style="flex:0.3" title="Approved: 4d"></div>
+          </div>
+          <div class="tl-bar-labels">
+            <span>Applied</span><span>Biometrics</span><span>Decision</span><span>Approved</span>
+          </div>
+        </div>
+
+        <div class="tl-card" data-cat="us">
+          <div class="tl-head">
+            <div>
+              <div class="tl-type">US B1/B2</div>
+              <div class="tl-origin">India · Applied Jan 14 · Approved Apr 2</div>
+            </div>
+            <div class="tl-duration">78 days</div>
+          </div>
+          <div class="tl-bar">
+            <div class="seg seg-wait" style="flex:3" title="Waiting: 45d"></div>
+            <div class="seg seg-bio" style="flex:0.5" title="Interview: 5d"></div>
+            <div class="seg seg-decision" style="flex:1.5" title="Admin: 22d"></div>
+            <div class="seg seg-done" style="flex:0.4" title="Issued: 6d"></div>
+          </div>
+          <div class="tl-bar-labels">
+            <span>Applied</span><span>Interview</span><span>Admin</span><span>Issued</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-cta" onclick="window.location='timelines.html'">
+        <div class="compare-cta-text">
+          <strong>See how long visas are taking for people like you</strong>
+          <span>Filter by visa type, country, and application date</span>
+        </div>
+        <span class="compare-arrow">→</span>
+      </div>
     </section>
+  </main>
 
-    <section id="portfolio">
-        <div class="section-header animate-on-scroll">
-            <h2>Selected Works</h2>
+  <!-- SUBMIT CTA BANNER -->
+  <section class="submit-banner">
+    <div class="submit-banner-inner">
+      <div class="submit-banner-text">
+        <h3>Applied for a visa? Add your timeline.</h3>
+        <p>Takes 60 seconds. Helps thousands. See how you compare instantly.</p>
+      </div>
+      <a href="submit.html" class="btn-primary">Add my timeline →</a>
+    </div>
+  </section>
+
+  <!-- ALERT MODAL -->
+  <div class="modal-overlay" id="alertModal" onclick="closeAlertModal(event)">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Set a slot alert</h3>
+        <button class="modal-close" onclick="closeAlertModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Embassy / Consulate</label>
+          <select>
+            <option>Lagos — US Consulate</option>
+            <option>Accra — German Embassy</option>
+            <option>Nairobi — UK VFS</option>
+            <option>Mumbai — US Consulate</option>
+            <option>Abuja — US Consulate</option>
+          </select>
         </div>
-        
-        <div class="grid">
-            <div class="card animate-on-scroll">
-                <span class="card-category">FMCG Brand Activation</span>
-                <h3>NutriMorn & NutriSnax</h3>
-                <p>Developed high-impact visual strategies and promotional materials for market entry. Directed design for consumer-facing advertisements that elevated product visibility against global competitors.</p>
-            </div>
-
-            <div class="card animate-on-scroll" style="transition-delay: 0.1s;">
-                <span class="card-category">Campaign & Packaging</span>
-                <h3>"Perk My Valentine"</h3>
-                <p>Engineered the seasonal visual identity and custom sticker designs for the 'Perk' brand. The design successfully merged emotional resonance with striking retail shelf appeal.</p>
-            </div>
-
-            <div class="card animate-on-scroll" style="transition-delay: 0.2s;">
-                <span class="card-category">UI / UX Design</span>
-                <h3>Educational LMS Dashboard</h3>
-                <p>Architected the interface and user experience for a comprehensive Learning Management System. The design prioritized intuitive navigation and accessibility for both educators and students.</p>
-            </div>
+        <div class="form-group">
+          <label>Visa type</label>
+          <select>
+            <option>B1/B2 Tourist/Business</option>
+            <option>F1 Student</option>
+            <option>UK Skilled Worker</option>
+            <option>Schengen</option>
+          </select>
         </div>
-    </section>
-
-    <section id="services">
-        <div class="section-header animate-on-scroll">
-            <h2>Expertise</h2>
+        <div class="form-group">
+          <label>Alert me via</label>
+          <input type="email" placeholder="your@email.com" />
         </div>
-        <div class="grid">
-            <div class="card animate-on-scroll">
-                <h3>Brand Identity</h3>
-                <p>Creating timeless logos, typography, and visual systems that anchor your brand in the minds of your target audience.</p>
-            </div>
-            <div class="card animate-on-scroll" style="transition-delay: 0.1s;">
-                <h3>Advertising Design</h3>
-                <p>Crafting compelling promotional materials tailored for both digital campaigns and high-end print production.</p>
-            </div>
-            <div class="card animate-on-scroll" style="transition-delay: 0.2s;">
-                <h3>Art Direction</h3>
-                <p>Overseeing the creative vision of large-scale projects from conceptualization through to final market execution.</p>
-            </div>
-        </div>
-    </section>
+        <button class="btn-primary btn-full" onclick="closeAlertModal()">Set alert — it's free</button>
+        <p class="modal-note">Free: 10-min delay · Premium: instant push notification</p>
+      </div>
+    </div>
+  </div>
 
-    <footer id="contact" class="animate-on-scroll">
-        <h2 style="margin-bottom: 1rem; font-size: 2rem;">Ready to elevate your brand?</h2>
-        <p style="color: var(--text-muted); margin-bottom: 2rem;">Contact Focus 360 for high-level creative consultation.</p>
-        <a href="mailto:hello@focus360.com" class="btn">hello@focus360.com</a>
-        <p style="margin-top: 4rem; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
-            &copy; 2026 Focus 360. All rights reserved.
-        </p>
-    </footer>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-pulse logo-pulse-sm"></span>
+        VisaPulse
+      </div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="timelines.html">Timelines</a>
+        <a href="submit.html">Submit</a>
+      </div>
+      <div class="footer-note">Community-powered · Not affiliated with any government agency</div>
+    </div>
+  </footer>
 
-    <script>
-        // --- 1. Theme Toggle Logic ---
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                htmlElement.setAttribute('data-theme', 'dark');
-                themeToggleBtn.textContent = 'Switch to Light';
-            } else {
-                htmlElement.setAttribute('data-theme', 'light');
-                themeToggleBtn.textContent = 'Switch to Dark';
-            }
-        });
-
-        // --- 2. Scroll Animation Logic ---
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15 // Triggers when 15% of the element is visible
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Only animate once
-                }
-            });
-        }, observerOptions);
-
-        // Target all elements with the 'animate-on-scroll' class
-        document.querySelectorAll('.animate-on-scroll').forEach(element => {
-            observer.observe(element);
-        });
-    </script>
+  <script src="js/home.js"></script>
 </body>
 </html>
